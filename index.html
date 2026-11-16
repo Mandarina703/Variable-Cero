@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Variable Cero — Data Science & AI Store</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tipografías Space Grotesk & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        vc: {
+                            bg: '#050914',
+                            surface: '#0c1428',
+                            card: '#121d38',
+                            border: '#1e3058',
+                            blue: '#2563eb',
+                            sky: '#38bdf8',
+                            yellow: '#facc15',
+                            amber: '#eab308',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Detalles sutiles renovados: resplandor suave y retícula ligera */
+        .hero-aura {
+            background:
+                radial-gradient(circle at 20% 20%, rgba(37, 99, 235, 0.22), transparent 45%),
+                radial-gradient(circle at 80% 30%, rgba(250, 204, 21, 0.14), transparent 42%),
+                linear-gradient(180deg, #091229 0%, #050914 100%);
+        }
+        .card-shine {
+            transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+        .card-shine:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 32px -12px rgba(37, 99, 235, 0.35), 0 0 0 1px rgba(250, 204, 21, 0.35);
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050914;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e3058;
+            border-radius: 999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #facc15;
+        }
+    </style>
+</head>
+<body class="bg-vc-bg text-slate-100 font-sans antialiased selection:bg-vc-yellow selection:text-vc-bg overflow-x-hidden">
+
+    <!-- 1. BARRA SUPERIOR DE CAMPAÑA CON CUENTA ATRÁS EN VIVO -->
+    <div class="bg-gradient-to-r from-vc-blue via-sky-500 to-vc-yellow text-vc-bg text-xs sm:text-sm font-bold py-2 px-4 text-center shadow-md">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-2 sm:gap-4">
+            <span class="bg-vc-bg text-vc-yellow px-2.5 py-0.5 rounded-full uppercase tracking-wider text-[11px] font-extrabold">
+                DATA WEEK LAB
+            </span>
+            <span>Hasta <strong>-50%</strong> en Datasets, Pesos IA & Cómputo GPU · Finaliza en:</span>
+            <span id="countdownTimer" class="font-display bg-vc-bg/90 text-white px-2.5 py-0.5 rounded-md border border-vc-bg/30 tracking-wider">
+                18h : 44m : 19s
+            </span>
+        </div>
+    </div>
+
+    <!-- 2. HEADER STICKY CON BUSCADOR Y BOTONES -->
+    <header class="sticky top-0 z-40 bg-vc-bg/90 backdrop-blur-lg border-b border-vc-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-3">
+            
+            <!-- Logotipo Variable Cero -->
+            <a href="#" class="flex items-center gap-3 shrink-0 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-vc-blue to-vc-yellow p-[1.5px] shadow-lg shadow-vc-blue/25">
+                    <div class="w-full h-full bg-vc-surface rounded-[10px] flex items-center justify-center">
+                        <span class="font-display font-bold text-vc-yellow text-lg tracking-tighter">V0</span>
+                    </div>
+                </div>
+                <div>
+                    <span class="font-display font-bold text-lg sm:text-xl tracking-tight text-white block leading-none">
+                        Variable <span class="text-vc-yellow">Cero</span>
+                    </span>
+                    <span class="text-[11px] text-vc-sky font-medium tracking-wide">Data Science & AI Store</span>
+                </div>
+            </a>
+
+            <!-- Buscador Central -->
+            <div class="hidden md:flex flex-1 max-w-md relative">
+                <input type="text" id="searchInput" oninput="handleSearch(this.value)" placeholder="Buscar datasets, LLaMA-3, Parquet, H100, Optuna..."
+                    class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-vc-surface border border-vc-border text-sm text-white placeholder-slate-400 focus:outline-none focus:border-vc-yellow transition-colors">
+                <svg class="w-4 h-4 text-vc-sky absolute left-3.5 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+            </div>
+
+            <!-- Botones de Acción Derecha -->
+            <div class="flex items-center gap-2 sm:gap-3">
+                <!-- Botón Volver al Lobby -->
+                <a href="https://flxnowgames-tech.github.io/lobby/"
+                    class="inline-flex items-center gap-1.5 px-3 sm:px-4 py-2 rounded-xl bg-vc-surface hover:bg-vc-card border border-vc-border hover:border-vc-yellow text-xs sm:text-sm font-semibold text-slate-100 transition-all">
+                    <svg class="w-4 h-4 text-vc-yellow shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                    </svg>
+                    <span>Volver al Lobby</span>
+                </a>
+
+                <!-- Botón Contáctanos -->
+                <a href="#contacto"
+                    class="hidden lg:inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-vc-surface hover:bg-vc-card border border-vc-border hover:border-vc-sky text-sm font-semibold text-vc-sky transition-all">
+                    Contáctanos
+                </a>
+
+                <!-- Botón Cesta -->
+                <button onclick="toggleCart()"
+                    class="relative inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl bg-vc-yellow hover:bg-vc-amber text-vc-bg font-bold text-xs sm:text-sm shadow-lg shadow-vc-yellow/20 transition-all cursor-pointer">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.3" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+                    </svg>
+                    <span class="hidden sm:inline">Cesta</span>
+                    <span id="cartBadge" class="px-1.5 py-0.5 rounded-full bg-vc-bg text-vc-yellow text-xs font-extrabold">0</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Buscador Móvil -->
+        <div class="px-4 pb-3 md:hidden">
+            <div class="relative">
+                <input type="text" oninput="handleSearch(this.value)" placeholder="Buscar datasets, modelos IA, pipelines..."
+                    class="w-full pl-9 pr-4 py-2 rounded-xl bg-vc-surface border border-vc-border text-xs text-white placeholder-slate-400 focus:outline-none focus:border-vc-yellow">
+                <svg class="w-4 h-4 text-vc-sky absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+            </div>
+        </div>
+    </header>
+
+    <!-- 3. HERO CENTRADO CON INSIGNIAS DE CONFIANZA -->
+    <section class="hero-aura border-b border-vc-border py-12 sm:py-16 px-4 sm:px-6 lg:px-8 text-center relative overflow-hidden">
+        <div class="max-w-4xl mx-auto relative z-10">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-vc-surface border border-vc-blue/50 text-xs font-semibold text-vc-sky mb-5">
+                <span class="w-2 h-2 rounded-full bg-vc-yellow animate-pulse"></span>
+                <span>Laboratorio Oficial de Recursos para Data Scientists & ML Engineers</span>
+            </div>
+
+            <h1 class="font-display text-3xl sm:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-tight">
+                Todo tu stack de <span class="text-transparent bg-clip-text bg-gradient-to-r from-vc-sky via-blue-400 to-vc-yellow">Ciencia de Datos e IA</span> en un solo lugar
+            </h1>
+
+            <p class="mt-4 text-slate-300 text-sm sm:text-lg max-w-2xl mx-auto leading-relaxed">
+                Datasets particionados en Parquet/Arrow, pesos preentrenados listos para inferencia, arquitecturas Lakehouse y clústeres GPU con garantía científica.
+            </p>
+
+            <!-- Botones Hero -->
+            <div class="mt-7 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+                <a href="#escaparate" onclick="filterShowcase('ofertas')"
+                    class="px-6 py-3.5 rounded-xl bg-vc-yellow hover:bg-vc-amber text-vc-bg font-extrabold text-sm shadow-lg shadow-vc-yellow/25 transition-all">
+                    Ver Ofertas Data Week
+                </a>
+                <a href="#escaparate" onclick="filterShowcase('todos')"
+                    class="px-6 py-3.5 rounded-xl bg-vc-surface hover:bg-vc-card border border-vc-blue/60 text-white font-bold text-sm transition-all">
+                    Explorar Catálogo (100)
+                </a>
+            </div>
+
+            <!-- Insignias de Confianza -->
+            <div class="mt-9 pt-7 border-t border-vc-border/80 grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+                <div class="px-3 py-2.5 rounded-xl bg-vc-surface/80 border border-vc-border flex items-center justify-center gap-2">
+                    <span class="text-vc-yellow font-bold">⚡</span>
+                    <span class="text-slate-200 font-semibold">Acceso S3 / API Instantáneo</span>
+                </div>
+                <div class="px-3 py-2.5 rounded-xl bg-vc-surface/80 border border-vc-border flex items-center justify-center gap-2">
+                    <span class="text-vc-sky font-bold">🛡️</span>
+                    <span class="text-slate-200 font-semibold">DataShield SLA 99.95%</span>
+                </div>
+                <div class="px-3 py-2.5 rounded-xl bg-vc-surface/80 border border-vc-border flex items-center justify-center gap-2">
+                    <span class="text-vc-yellow font-bold">✓</span>
+                    <span class="text-slate-200 font-semibold">Esquemas Validados GDPR</span>
+                </div>
+                <div class="px-3 py-2.5 rounded-xl bg-vc-surface/80 border border-vc-border flex items-center justify-center gap-2">
+                    <span class="text-vc-sky font-bold">★</span>
+                    <span class="text-slate-200 font-semibold">4.9/5 (+1.650 Labs)</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. CUADRÍCULA SIMÉTRICA 2x4 CON LOS 8 BLOQUES INTERACTIVOS -->
+    <section id="bloques" class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-7 gap-2">
+            <div>
+                <span class="text-xs font-bold uppercase tracking-widest text-vc-yellow">Panel de Navegación</span>
+                <h2 class="font-display text-2xl sm:text-3xl font-bold text-white mt-0.5">Accesos Directos Variable Cero</h2>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-400">Pulsa en cualquier tarjeta para abrir su herramienta o información detallada.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+            
+            <!-- Bloque 1: Catálogo -->
+            <div onclick="openModal('catalogo')" class="card-shine rounded-2xl bg-vc-surface border border-vc-border hover:border-vc-sky p-5 cursor-pointer flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="w-10 h-10 rounded-xl bg-vc-blue/20 border border-vc-blue/40 text-vc-sky flex items-center justify-center font-bold">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+                        </div>
+                        <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-vc-bg text-vc-sky border border-vc-border">9 Categorías</span>
+                    </div>
+                    <h3 class="font-display text-lg font-bold text-white">Catálogo</h3>
+                    <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">Datasets, modelos IA, pipelines ETL, nodos GPU, APIs y libros científicos.</p>
+                </div>
+                <span class="mt-4 text-xs font-bold text-vc-sky inline-flex items-center gap-1">Explorar familias →</span>
+            </div>
+
+            <!-- Bloque 2: Tendencias -->
+            <div onclick="openModal('tendencias')" class="card-shine rounded-2xl bg-vc-surface border border-vc-border hover:border-vc-yellow p-5 cursor-pointer flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="w-10 h-10 rounded-xl bg-vc-yellow/15 border border-vc-yellow/40 text-vc-yellow flex items-center justify-center font-bold">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+                        </div>
+                        <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-vc-yellow/15 text-vc-yellow">TOP LAB</span>
+                    </div>
+                    <h3 class="font-display text-lg font-bold text-white">Tendencias</h3>
+                    <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">Los activos más descargados y desplegados hoy por científicos de datos.</p>
+                </div>
+                <span class="mt-4 text-xs font-bold text-vc-yellow inline-flex items-center gap-1">Ver ranking →</span>
+            </div>
+
+            <!-- Bloque 3: Ofertas -->
+            <div onclick="openModal('ofertas')" class="card-shine rounded-2xl bg-gradient-to-br from-vc-surface to-vc-blue/20 border border-vc-yellow/50 p-5 cursor-pointer flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="w-10 h-10 rounded-xl bg-vc-yellow text-vc-bg flex items-center justify-center font-extrabold">
+                            %
+                        </div>
+                        <span class="text-[11px] font-extrabold px-2.5 py-0.5 rounded-full bg-vc-yellow text-vc-bg">HASTA -50%</span>
+                    </div>
+                    <h3 class="font-display text-lg font-bold text-white">Ofertas</h3>
+                    <p class="text-xs text-slate-300 mt-1.5 leading-relaxed">Descuentos Data Week y cupones activos <strong class="text-vc-yellow">TENSOR30</strong> y <strong class="text-vc-sky">CERO25AI</strong>.</p>
+                </div>
+                <span class="mt-4 text-xs font-bold text-vc-yellow inline-flex items-center gap-1">Ver cupones y chollos →</span>
+            </div>
+
+            <!-- Bloque 4: Localización -->
+            <div onclick="openModal('localizacion')" class="card-shine rounded-2xl bg-vc-surface border border-vc-border hover:border-vc-sky p-5 cursor-pointer flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="w-10 h-10 rounded-xl bg-vc-blue/20 border border-vc-blue/40 text-vc-sky flex items-center justify-center">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                        </div>
+                        <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-vc-bg text-slate-300 border border-vc-border">Sevilla Hub</span>
+                    </div>
+                    <h3 class="font-display text-lg font-bold text-white">Localización</h3>
+                    <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">Visita nuestro Data Hub en Cartuja con sala de benchmarking Multi-GPU.</p>
+                </div>
+                <span class="mt-4 text-xs font-bold text-vc-sky inline-flex items-center gap-1">Ubicación y horarios →</span>
+            </div>
+
+            <!-- Bloque 5: Consultoría & Pipelines -->
+            <div onclick="openModal('consultoria')" class="card-shine rounded-2xl bg-vc-surface border border-vc-border hover:border-vc-yellow p-5 cursor-pointer flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="w-10 h-10 rounded-xl bg-vc-yellow/15 border border-vc-yellow/40 text-vc-yellow flex items-center justify-center">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+                        </div>
+                        <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-vc-bg text-vc-yellow border border-vc-border">A medida</span>
+                    </div>
+                    <h3 class="font-display text-lg font-bold text-white">Consultoría & Pipelines</h3>
+                    <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">Arquitecturas Lakehouse, fine-tuning privado de LLMs y despliegue RAG.</p>
+                </div>
+                <span class="mt-4 text-xs font-bold text-vc-yellow inline-flex items-center gap-1">Solicitar ingeniería →</span>
+            </div>
+
+            <!-- Bloque 6: Garantías -->
+            <div onclick="openModal('garantias')" class="card-shine rounded-2xl bg-vc-surface border border-vc-border hover:border-vc-sky p-5 cursor-pointer flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="w-10 h-10 rounded-xl bg-vc-blue/20 border border-vc-blue/40 text-vc-sky flex items-center justify-center">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                        </div>
+                        <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-vc-bg text-vc-sky border border-vc-border">SLA 99.95%</span>
+                    </div>
+                    <h3 class="font-display text-lg font-bold text-white">Garantías</h3>
+                    <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">Cobertura DataShield SLA en APIs, integridad SHA-256 y 3 años en hardware.</p>
+                </div>
+                <span class="mt-4 text-xs font-bold text-vc-sky inline-flex items-center gap-1">Ver coberturas →</span>
+            </div>
+
+            <!-- Bloque 7: Devoluciones -->
+            <div onclick="openModal('devoluciones')" class="card-shine rounded-2xl bg-vc-surface border border-vc-border hover:border-vc-yellow p-5 cursor-pointer flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="w-10 h-10 rounded-xl bg-vc-yellow/15 border border-vc-yellow/40 text-vc-yellow flex items-center justify-center">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                        </div>
+                        <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-vc-bg text-slate-300 border border-vc-border">Sin riesgo</span>
+                    </div>
+                    <h3 class="font-display text-lg font-bold text-white">Devoluciones</h3>
+                    <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">Reembolso de horas GPU no consumidas y muestra gratuita del 5% en datasets.</p>
+                </div>
+                <span class="mt-4 text-xs font-bold text-vc-yellow inline-flex items-center gap-1">Política flexible →</span>
+            </div>
+
+            <!-- Bloque 8: Valóranos -->
+            <div onclick="openModal('valoranos')" class="card-shine rounded-2xl bg-vc-surface border border-vc-border hover:border-vc-sky p-5 cursor-pointer flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="w-10 h-10 rounded-xl bg-vc-blue/20 border border-vc-blue/40 text-vc-yellow flex items-center justify-center font-bold">
+                            ★
+                        </div>
+                        <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-vc-yellow/15 text-vc-yellow">4.9 / 5.0</span>
+                    </div>
+                    <h3 class="font-display text-lg font-bold text-white">Valóranos</h3>
+                    <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">Lee reseñas verificadas de otros Data Scientists o publica tu valoración.</p>
+                </div>
+                <span class="mt-4 text-xs font-bold text-vc-sky inline-flex items-center gap-1">Opiniones en vivo →</span>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 5. BARRA DE CUPONES COPIABLES (TENSOR30 Y CERO25AI) -->
+    <section class="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto mb-10">
+        <div class="rounded-2xl bg-gradient-to-r from-vc-surface via-vc-card to-vc-surface border border-vc-blue/40 p-5 sm:p-6 flex flex-col lg:flex-row items-center justify-between gap-5 shadow-xl">
+            <div class="text-center lg:text-left">
+                <span class="text-xs font-extrabold uppercase tracking-wider text-vc-yellow">Cupones Exclusivos Variable Cero</span>
+                <h3 class="font-display text-xl sm:text-2xl font-bold text-white mt-0.5">Ahorra aún más en tu pedido de Data Science</h3>
+                <p class="text-xs sm:text-sm text-slate-300 mt-1">Haz clic sobre cualquier código para copiarlo automáticamente al portapapeles.</p>
+            </div>
+
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full lg:w-auto">
+                <!-- Cupón 1: TENSOR30 -->
+                <button onclick="copyCoupon('TENSOR30')"
+                    class="flex items-center justify-between gap-4 px-4 py-3 rounded-xl bg-vc-bg hover:bg-vc-card border-2 border-dashed border-vc-yellow text-left transition-all cursor-pointer group">
+                    <div>
+                        <span class="block text-[11px] text-slate-400 font-medium">Descuento directo -30€</span>
+                        <span class="font-display text-base font-bold text-vc-yellow tracking-wider">TENSOR30</span>
+                    </div>
+                    <span class="px-2.5 py-1 rounded-lg bg-vc-yellow text-vc-bg text-xs font-extrabold group-hover:scale-105 transition-transform">
+                        Copiar
+                    </span>
+                </button>
+
+                <!-- Cupón 2: CERO25AI -->
+                <button onclick="copyCoupon('CERO25AI')"
+                    class="flex items-center justify-between gap-4 px-4 py-3 rounded-xl bg-vc-bg hover:bg-vc-card border-2 border-dashed border-vc-sky text-left transition-all cursor-pointer group">
+                    <div>
+                        <span class="block text-[11px] text-slate-400 font-medium">Rebaja extra -25%</span>
+                        <span class="font-display text-base font-bold text-vc-sky tracking-wider">CERO25AI</span>
+                    </div>
+                    <span class="px-2.5 py-1 rounded-lg bg-vc-blue text-white text-xs font-extrabold group-hover:scale-105 transition-transform">
+                        Copiar
+                    </span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. ESCAPARATE PRINCIPAL CON 100 PRODUCTOS EN 9 CATEGORÍAS -->
+    <section id="escaparate" class="py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
+            <div>
+                <span class="text-xs font-bold uppercase tracking-widest text-vc-sky">Inventario Científico Verificado</span>
+                <h2 class="font-display text-2xl sm:text-3xl font-bold text-white mt-0.5">Catálogo de Productos Data Science e IA</h2>
+            </div>
+            <div class="px-4 py-2 rounded-xl bg-vc-surface border border-vc-border text-xs font-semibold text-slate-300 self-start md:self-auto">
+                Mostrando <span id="visibleCount" class="text-vc-yellow font-extrabold">100</span> de 100 recursos
+            </div>
+        </div>
+
+        <!-- Filtros por las 9 Categorías + Ofertas/Tendencias -->
+        <div class="flex flex-wrap gap-2 mb-7" id="filterBar">
+            <button onclick="filterShowcase('todos')" data-filter="todos" class="filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-vc-yellow text-vc-bg shadow-md transition-all">
+                Todos (100)
+            </button>
+            <button onclick="filterShowcase('ofertas')" data-filter="ofertas" class="filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-vc-surface text-slate-200 hover:border-vc-yellow border border-vc-border transition-all">
+                ⚡ Ofertas Data Week
+            </button>
+            <button onclick="filterShowcase('tendencias')" data-filter="tendencias" class="filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-vc-surface text-slate-200 hover:border-vc-yellow border border-vc-border transition-all">
+                🔥 Tendencias
+            </button>
+            <button onclick="filterShowcase('Datasets & Corpus')" data-filter="Datasets & Corpus" class="filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-vc-surface text-slate-200 hover:border-vc-sky border border-vc-border transition-all">
+                Datasets & Corpus
+            </button>
+            <button onclick="filterShowcase('Modelos IA & Weights')" data-filter="Modelos IA & Weights" class="filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-vc-surface text-slate-200 hover:border-vc-sky border border-vc-border transition-all">
+                Modelos IA & Weights
+            </button>
+            <button onclick="filterShowcase('Pipelines & ETL')" data-filter="Pipelines & ETL" class="filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-vc-surface text-slate-200 hover:border-vc-sky border border-vc-border transition-all">
+                Pipelines & ETL
+            </button>
+            <button onclick="filterShowcase('Servidores & GPUs IA')" data-filter="Servidores & GPUs IA" class="filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-vc-surface text-slate-200 hover:border-vc-sky border border-vc-border transition-all">
+                Servidores & GPUs IA
+            </button>
+            <button onclick="filterShowcase('APIs & Conectores')" data-filter="APIs & Conectores" class="filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-vc-surface text-slate-200 hover:border-vc-sky border border-vc-border transition-all">
+                APIs & Conectores
+            </button>
+            <button onclick="filterShowcase('Notebooks & Scripts')" data-filter="Notebooks & Scripts" class="filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-vc-surface text-slate-200 hover:border-vc-sky border border-vc-border transition-all">
+                Notebooks & Scripts
+            </button>
+            <button onclick="filterShowcase('Cloud & Compute')" data-filter="Cloud & Compute" class="filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-vc-surface text-slate-200 hover:border-vc-sky border border-vc-border transition-all">
+                Cloud & Compute
+            </button>
+            <button onclick="filterShowcase('Libros & Papers')" data-filter="Libros & Papers" class="filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-vc-surface text-slate-200 hover:border-vc-sky border border-vc-border transition-all">
+                Libros & Papers
+            </button>
+            <button onclick="filterShowcase('Formación & Certs')" data-filter="Formación & Certs" class="filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-vc-surface text-slate-200 hover:border-vc-sky border border-vc-border transition-all">
+                Formación & Certs
+            </button>
+        </div>
+
+        <!-- Cuadrícula de Tarjetas de Productos con Cabecera SKU Limpia -->
+        <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+            <!-- Renderizado dinámico de los 100 productos -->
+        </div>
+
+        <!-- Mensaje si no hay resultados -->
+        <div id="emptyState" class="hidden py-16 text-center rounded-2xl bg-vc-surface border border-vc-border">
+            <p class="text-slate-300 font-semibold">No se encontraron recursos con esos criterios de búsqueda.</p>
+            <button onclick="resetFilters()" class="mt-4 px-5 py-2.5 rounded-xl bg-vc-yellow text-vc-bg font-bold text-xs">
+                Mostrar los 100 productos
+            </button>
+        </div>
+    </section>
+
+    <!-- 7. FORMULARIO DE CONTACTO -->
+    <section id="contacto" class="py-14 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+        <div class="rounded-3xl bg-vc-surface border border-vc-border p-6 sm:p-10 shadow-2xl">
+            <div class="text-center max-w-xl mx-auto mb-8">
+                <span class="inline-block px-3 py-1 rounded-full bg-vc-blue/20 border border-vc-blue/40 text-vc-sky text-xs font-bold mb-2">
+                    Soporte Técnico & Consultoría
+                </span>
+                <h2 class="font-display text-2xl sm:text-4xl font-bold text-white">Contáctanos</h2>
+                <p class="text-slate-400 text-xs sm:text-sm mt-2">
+                    ¿Necesitas muestras de datasets, dimensionamiento de VRAM o presupuestos para tu equipo de Data Science? Escríbenos.
+                </p>
+            </div>
+
+            <form id="contactForm" onsubmit="handleContactSubmit(event)" class="space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label for="contactName" class="block text-xs font-semibold text-slate-300 mb-1.5">Nombre completo</label>
+                        <input type="text" id="contactName" required placeholder="Ej. Elena Vidal"
+                            class="w-full px-4 py-3 rounded-xl bg-vc-bg border border-vc-border text-sm text-white placeholder-slate-500 focus:outline-none focus:border-vc-yellow">
+                    </div>
+                    <div>
+                        <label for="contactEmail" class="block text-xs font-semibold text-slate-300 mb-1.5">Correo electrónico</label>
+                        <input type="email" id="contactEmail" required placeholder="elena@datalab.es"
+                            class="w-full px-4 py-3 rounded-xl bg-vc-bg border border-vc-border text-sm text-white placeholder-slate-500 focus:outline-none focus:border-vc-yellow">
+                    </div>
+                </div>
+
+                <div>
+                    <label for="contactSubject" class="block text-xs font-semibold text-slate-300 mb-1.5">Motivo de la consulta</label>
+                    <select id="contactSubject"
+                        class="w-full px-4 py-3 rounded-xl bg-vc-bg border border-vc-border text-sm text-white focus:outline-none focus:border-vc-yellow">
+                        <option value="ofertas">Ofertas Data Week y Cupones (TENSOR30 / CERO25AI)</option>
+                        <option value="consultoria">Consultoría & Pipelines (Lakehouse / RAG / Fine-Tuning)</option>
+                        <option value="catalogo">Datasets a medida, Pesos IA o Clústeres GPU</option>
+                        <option value="garantias">Garantía DataShield SLA 99.95%</option>
+                        <option value="devoluciones">Devoluciones y Reembolso de Créditos GPU</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="contactMessage" class="block text-xs font-semibold text-slate-300 mb-1.5">Mensaje</label>
+                    <textarea id="contactMessage" rows="4" required placeholder="Cuéntanos qué datos, modelos o infraestructura necesitas..."
+                        class="w-full px-4 py-3 rounded-xl bg-vc-bg border border-vc-border text-sm text-white placeholder-slate-500 focus:outline-none focus:border-vc-yellow"></textarea>
+                </div>
+
+                <button type="submit"
+                    class="w-full py-3.5 rounded-xl bg-gradient-to-r from-vc-blue to-sky-500 hover:from-blue-500 hover:to-vc-yellow hover:text-vc-bg text-white font-extrabold text-sm tracking-wide shadow-lg transition-all cursor-pointer">
+                    Enviar Consulta al Laboratorio
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- 8. FOOTER CON BY MANDARINA -->
+    <footer class="border-t border-vc-border bg-vc-surface/70 py-8 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+            <div class="flex items-center gap-2">
+                <span class="font-display font-bold text-white text-sm">Variable <span class="text-vc-yellow">Cero</span></span>
+                <span>·</span>
+                <span>Data Science & AI Store</span>
+            </div>
+
+            <div class="px-4 py-1.5 rounded-full bg-vc-bg border border-vc-yellow/40 text-slate-200 font-semibold">
+                By <span class="text-transparent bg-clip-text bg-gradient-to-r from-vc-sky to-vc-yellow font-extrabold">mandarina</span>
+            </div>
+
+            <div>
+                © 2026 Variable Cero · Sevilla
+            </div>
+        </div>
+    </footer>
+
+    <!-- CAJÓN LATERAL DE LA CESTA -->
+    <div id="cartDrawer" class="fixed inset-0 z-50 hidden">
+        <div onclick="toggleCart()" class="absolute inset-0 bg-vc-bg/80 backdrop-blur-sm"></div>
+        <div class="absolute right-0 top-0 bottom-0 w-full max-w-md bg-vc-surface border-l border-vc-border shadow-2xl flex flex-col justify-between p-6">
+            <div>
+                <div class="flex items-center justify-between pb-4 border-b border-vc-border">
+                    <div>
+                        <span class="text-[11px] font-bold uppercase text-vc-yellow">Resumen de pedido</span>
+                        <h3 class="font-display text-lg font-bold text-white">Tu Cesta Variable Cero</h3>
+                    </div>
+                    <button onclick="toggleCart()" class="w-9 h-9 rounded-xl bg-vc-bg hover:bg-vc-card text-slate-300 flex items-center justify-center font-bold">✕</button>
+                </div>
+
+                <div id="cartItemsContainer" class="mt-4 space-y-3 max-h-[55vh] overflow-y-auto pr-1">
+                    <!-- Dinámico -->
+                </div>
+            </div>
+
+            <div class="pt-4 border-t border-vc-border space-y-4">
+                <div class="flex items-center justify-between text-xs">
+                    <span class="text-slate-400">Entrega digital S3 / API</span>
+                    <span class="text-vc-sky font-bold">Inmediata (Gratis)</span>
+                </div>
+                <div class="flex items-center justify-between text-lg font-extrabold text-white">
+                    <span>Total (IVA incl.)</span>
+                    <span id="cartTotal" class="font-display text-vc-yellow">0,00 €</span>
+                </div>
+                <button onclick="checkoutCart()" class="w-full py-3.5 rounded-xl bg-vc-yellow hover:bg-vc-amber text-vc-bg font-extrabold text-sm shadow-lg transition-all cursor-pointer">
+                    Tramitar Pedido
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL PARA LOS 8 BLOQUES INTERACTIVOS -->
+    <div id="sectionModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-vc-bg/85 backdrop-blur-sm">
+        <div class="bg-vc-surface border border-vc-blue/50 rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 shadow-2xl relative">
+            <button onclick="closeModal()" aria-label="Cerrar"
+                class="sticky top-0 float-right w-9 h-9 rounded-xl bg-vc-bg hover:bg-vc-yellow text-slate-300 hover:text-vc-bg flex items-center justify-center font-bold transition-colors z-10">
+                ✕
+            </button>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
+    <!-- NOTIFICACIÓN TOAST -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none">
+        <div class="bg-vc-surface border border-vc-yellow text-white px-5 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3">
+            <div class="w-6 h-6 rounded-full bg-vc-yellow text-vc-bg flex items-center justify-center shrink-0 font-extrabold text-xs">
+                ✓
+            </div>
+            <p id="toastMessage" class="text-xs sm:text-sm font-semibold">Acción completada</p>
+        </div>
+    </div>
+
+    <!-- SCRIPT DE DATOS E INTERACTIVIDAD -->
+    <script>
+        // ==========================================
+        // 1. 100 PRODUCTOS AUTÉNTICOS DE CIENCIA DE DATOS E IA EN 9 CATEGORÍAS
+        // ==========================================
+        const productsDB = [
+            // --- 1. Datasets & Corpus (12) ---
+            { id: 'DS-01', name: 'Dataset Financiero Tick-by-Tick 10 Años NYSE/NASDAQ (620GB Parquet)', subCategory: 'Datasets & Corpus', badge: '-35%', oldPrice: 699, price: 454, stockLeft: 9, specs: 'Order book L2/L3 limpio sin gaps · Particionado por ticker y fecha', isOffer: true, isTrend: true },
+            { id: 'DS-02', name: 'Corpus Lingüístico Español 500B Tokens Curados para LLM (Deduplicado)', subCategory: 'Datasets & Corpus', badge: '-30%', oldPrice: 899, price: 629, stockLeft: 7, specs: 'MinHash LSH deduplicado · Filtro PII/GDPR · Formato Apache Arrow', isOffer: true, isTrend: true },
+            { id: 'DS-03', name: 'Dataset Imágenes Médicas Radiología Anotadas (200k DICOM + Máscaras)', subCategory: 'Datasets & Corpus', badge: '-25%', oldPrice: 950, price: 712, stockLeft: 5, specs: 'Tórax, resonancia craneal y mamografía · Anotación doble ciego', isOffer: true, isTrend: false },
+            { id: 'DS-04', name: 'Datos Geoespaciales Movilidad Urbana Europa (35 Áreas Metropolitanas)', subCategory: 'Datasets & Corpus', badge: '-28%', oldPrice: 449, price: 323, stockLeft: 11, specs: 'Trayectorias GPS agregadas H3 Hexagons · Series cada 10 minutos', isOffer: true, isTrend: false },
+            { id: 'DS-05', name: 'Dataset E-Commerce Comportamiento 100M Sesiones & Embudo Conversión', subCategory: 'Datasets & Corpus', badge: '-32%', oldPrice: 389, price: 264, stockLeft: 14, specs: 'Clickstream, carritos, devoluciones y atributos · Ideal Two-Tower', isOffer: true, isTrend: true },
+            { id: 'DS-06', name: 'Corpus Jurídico & BOE Completo España 1980–2026 Estructurado JSONL', subCategory: 'Datasets & Corpus', badge: '-34%', oldPrice: 499, price: 329, stockLeft: 10, specs: 'Leyes, jurisprudencia y metadatos cruzados · Listo para RAG', isOffer: true, isTrend: false },
+            { id: 'DS-07', name: 'Dataset Detección Fraude Bancario 80M Transacciones + Grafos Relacionales', subCategory: 'Datasets & Corpus', badge: '-36%', oldPrice: 349, price: 223, stockLeft: 12, specs: 'Etiquetas verificadas de blanqueo y fraude con tarjeta · Sin fuga', isOffer: true, isTrend: false },
+            { id: 'DS-08', name: 'Dataset Telemetría Industrial IoT & Mantenimiento Predictivo (4.500 Turbinas)', subCategory: 'Datasets & Corpus', badge: '-27%', oldPrice: 420, price: 306, stockLeft: 8, specs: 'Vibración, temperatura y presión a 100Hz con RUL etiquetado', isOffer: true, isTrend: false },
+            { id: 'DS-09', name: 'Corpus Audio & Transcripción Español Acentos Hispanos (3.200 Horas)', subCategory: 'Datasets & Corpus', badge: '-29%', oldPrice: 540, price: 383, stockLeft: 6, specs: 'WAV 16kHz + timestamps por fonema y diarización de hablantes', isOffer: true, isTrend: false },
+            { id: 'DS-10', name: 'Dataset Imágenes Satelitales Sentinel-2 & LiDAR Agricultura de Precisión', subCategory: 'Datasets & Corpus', badge: '-22%', oldPrice: 680, price: 530, stockLeft: 5, specs: '12 bandas espectrales + índices NDVI/NDWI y estrés hídrico', isOffer: true, isTrend: false },
+            { id: 'DS-11', name: 'Dataset Instrucciones & Preferencias RLHF/DPO Español (250k Pares)', subCategory: 'Datasets & Corpus', badge: '-38%', oldPrice: 320, price: 198, stockLeft: 15, specs: 'Respuestas chosen/rejected anotadas por expertos en código y lógica', isOffer: true, isTrend: true },
+            { id: 'DS-12', name: 'Dataset Consumo Eléctrico & Generación Renovable Horaria Europa 15 Años', subCategory: 'Datasets & Corpus', badge: '-40%', oldPrice: 199, price: 119, stockLeft: 19, specs: 'Precios spot OMIE/EPEX, demanda y variables meteorológicas ERA5', isOffer: true, isTrend: false },
+
+            // --- 2. Modelos IA & Weights (11) ---
+            { id: 'MD-01', name: 'Modelo Fine-Tuned LLaMA-3 70B Español Legal/Financiero (Safetensors + GGUF)', subCategory: 'Modelos IA & Weights', badge: '-28%', oldPrice: 1199, price: 863, stockLeft: 6, specs: 'Contexto 128k · Supera a GPT-4o en normativa fiscal y mercantil ES', isOffer: true, isTrend: true },
+            { id: 'MD-02', name: 'Red Neuronal Detección Fraude Bancario en Tiempo Real (GraphSAGE + XGBoost)', subCategory: 'Modelos IA & Weights', badge: '-25%', oldPrice: 890, price: 667, stockLeft: 7, specs: 'Exportado a ONNX Runtime & Triton · AUC-ROC 0.994 en validación', isOffer: true, isTrend: true },
+            { id: 'MD-03', name: 'Modelo Visión Artificial Control Calidad Industrial (YOLOv10-X + TensorRT)', subCategory: 'Modelos IA & Weights', badge: '-30%', oldPrice: 750, price: 525, stockLeft: 9, specs: 'Detecta fisuras submilimétricas, soldaduras y defectos textiles', isOffer: true, isTrend: false },
+            { id: 'MD-04', name: 'Pipeline NLP Análisis Sentimiento & Entidades Multilingüe (DeBERTa-v3-Large)', subCategory: 'Modelos IA & Weights', badge: '-35%', oldPrice: 340, price: 221, stockLeft: 14, specs: 'Extracción de aspectos, ironía y NER financiero en 18 idiomas', isOffer: true, isTrend: true },
+            { id: 'MD-05', name: 'Modelo Predicción Demanda Series Temporales (Temporal Fusion Transformer)', subCategory: 'Modelos IA & Weights', badge: '-26%', oldPrice: 590, price: 436, stockLeft: 10, specs: 'Cuantiles P10/P50/P90 · Maneja festivos, promociones y cold-start', isOffer: true, isTrend: false },
+            { id: 'MD-06', name: 'Modelo Embeddings Densos & Dispersos EmbedZero-BGE-ES (1024-dim)', subCategory: 'Modelos IA & Weights', badge: '-33%', oldPrice: 290, price: 194, stockLeft: 16, specs: 'Búsqueda híbrida semántica + léxica para Qdrant y Milvus', isOffer: true, isTrend: true },
+            { id: 'MD-07', name: 'Modelo Document AI & OCR Estructurado Facturas/Nóminas (LayoutLMv3-ES)', subCategory: 'Modelos IA & Weights', badge: '-31%', oldPrice: 480, price: 331, stockLeft: 11, specs: 'Extrae tablas complejas y líneas de concepto a JSON validado', isOffer: true, isTrend: false },
+            { id: 'MD-08', name: 'Modelo Segmentación Biomédica 3D (SwinUNETR Preentrenado en 50k TC)', subCategory: 'Modelos IA & Weights', badge: '-20%', oldPrice: 820, price: 656, stockLeft: 5, specs: 'Compatible con MONAI y PyTorch · Pesos listos para transfer learning', isOffer: true, isTrend: false },
+            { id: 'MD-09', name: 'Modelo Text-to-SQL & Razonamiento Analítico CodeData-32B (AWQ / FP16)', subCategory: 'Modelos IA & Weights', badge: '-29%', oldPrice: 540, price: 383, stockLeft: 8, specs: 'Genera consultas complejas Postgres, Snowflake y BigQuery sin errores', isOffer: true, isTrend: true },
+            { id: 'MD-10', name: 'Pack 20 Adaptadores QLoRA Especializados (Salud, Banca, Telco, Energía)', subCategory: 'Modelos IA & Weights', badge: '-40%', oldPrice: 250, price: 150, stockLeft: 18, specs: 'Intercambio dinámico en vLLM sin reiniciar el servidor', isOffer: true, isTrend: false },
+            { id: 'MD-11', name: 'Modelo Recomendador Secuencial SASRec + Embeddings Multimodales', subCategory: 'Modelos IA & Weights', badge: '-24%', oldPrice: 410, price: 311, stockLeft: 9, specs: 'Incrementa CTR un +18% combinando texto, imagen e historial', isOffer: true, isTrend: false },
+
+            // --- 3. Pipelines & ETL (11) ---
+            { id: 'PP-01', name: 'Plantilla Arquitectura Lakehouse Apache Iceberg + Spark + Trino (Terraform)', subCategory: 'Pipelines & ETL', badge: '-30%', oldPrice: 599, price: 419, stockLeft: 10, specs: 'Time-travel, evolución de esquema y particionado oculto listo', isOffer: true, isTrend: true },
+            { id: 'PP-02', name: 'Conector ETL Streaming Apache Kafka + Flink + dbt + Snowflake', subCategory: 'Pipelines & ETL', badge: '-28%', oldPrice: 490, price: 352, stockLeft: 12, specs: 'Ingesta CDC con Debezium y modelos incrementales dbt preconfigurados', isOffer: true, isTrend: true },
+            { id: 'PP-03', name: 'Pipeline MLOps Automatizado con MLflow, DVC, BentoML y Kubernetes', subCategory: 'Pipelines & ETL', badge: '-32%', oldPrice: 450, price: 306, stockLeft: 13, specs: 'Reentrenamiento disparado por data drift y despliegue canary', isOffer: true, isTrend: true },
+            { id: 'PP-04', name: 'Orquestador Apache Airflow + Great Expectations Data Quality Suite', subCategory: 'Pipelines & ETL', badge: '-35%', oldPrice: 320, price: 208, stockLeft: 15, specs: '45 DAGs reutilizables y contratos de datos con alertas en Slack', isOffer: true, isTrend: false },
+            { id: 'PP-05', name: 'Sistema RAG Empresarial Híbrido con Qdrant, LangGraph y Reranker', subCategory: 'Pipelines & ETL', badge: '-29%', oldPrice: 520, price: 369, stockLeft: 9, specs: 'Chunking semántico, citas verificables y evaluación con RAGAS', isOffer: true, isTrend: true },
+            { id: 'PP-06', name: 'Feature Store Online/Offline con Feast + Redis + DuckDB/Parquet', subCategory: 'Pipelines & ETL', badge: '-26%', oldPrice: 390, price: 288, stockLeft: 11, specs: 'Garantiza paridad exacta entre entrenamiento e inferencia en vivo', isOffer: true, isTrend: false },
+            { id: 'PP-07', name: 'Pipeline Ingesta & Limpieza Masiva PDF/HTML/Office con Unstructured + Ray', subCategory: 'Pipelines & ETL', badge: '-33%', oldPrice: 280, price: 187, stockLeft: 14, specs: 'Procesamiento distribuido de millones de documentos con OCR', isOffer: true, isTrend: false },
+            { id: 'PP-08', name: 'Stack Modern Data BI: Airbyte + dbt Core + MotherDuck + Apache Superset', subCategory: 'Pipelines & ETL', badge: '-38%', oldPrice: 299, price: 185, stockLeft: 17, specs: 'Despliegue Docker Compose / Helm completo sin licencias propietarias', isOffer: true, isTrend: false },
+            { id: 'PP-09', name: 'Pipeline Anonimización PII & Cumplimiento GDPR con Microsoft Presidio', subCategory: 'Pipelines & ETL', badge: '-27%', oldPrice: 310, price: 226, stockLeft: 12, specs: 'Detecta y enmascara DNI, IBAN, nombres e historias clínicas en streaming', isOffer: true, isTrend: false },
+            { id: 'PP-10', name: 'Orquestador Prefect 3.0 + Polars Engine para ETL de Alto Rendimiento', subCategory: 'Pipelines & ETL', badge: '-31%', oldPrice: 260, price: 179, stockLeft: 16, specs: 'Sustituye pipelines lentos de Pandas/Spark reduciendo costes un 70%', isOffer: true, isTrend: false },
+            { id: 'PP-11', name: 'Blueprint Data Mesh Multi-Dominio con Dagster + OpenMetadata', subCategory: 'Pipelines & ETL', badge: '-22%', oldPrice: 640, price: 499, stockLeft: 6, specs: 'Gobernanza federada, linaje automático y catálogo de activos', isOffer: true, isTrend: false },
+
+            // --- 4. Servidores & GPUs IA (11) ---
+            { id: 'SV-01', name: 'Nodo Entrenamiento Dual NVIDIA RTX 6000 Ada 96GB VRAM ECC + EPYC 64-Core', subCategory: 'Servidores & GPUs IA', badge: '-18%', oldPrice: 17900, price: 14678, stockLeft: 2, specs: '512GB DDR5 ECC · 8TB NVMe Gen5 · Entrena modelos 70B localmente', isOffer: true, isTrend: true },
+            { id: 'SV-02', name: 'Workstation Deep Learning Threadripper PRO 7975WX / 512GB ECC / 2x RTX 4090', subCategory: 'Servidores & GPUs IA', badge: '-22%', oldPrice: 9499, price: 7409, stockLeft: 3, specs: '48GB VRAM NVLink · Ubuntu 24.04 + CUDA 12.6 + PyTorch preconfigurado', isOffer: true, isTrend: true },
+            { id: 'SV-03', name: 'Servidor Inferencia 4U 4x NVIDIA L40S 192GB Tensor Core + Red 100GbE', subCategory: 'Servidores & GPUs IA', badge: '-15%', oldPrice: 34500, price: 29325, stockLeft: 2, specs: '1.466 TFLOPS FP8 · Optimizado para vLLM, TensorRT-LLM y multimodal', isOffer: true, isTrend: false },
+            { id: 'SV-04', name: 'Cluster Local DGX-Style 2x NVIDIA H100 PCIe 80GB HBM3 + NVLink Bridge', subCategory: 'Servidores & GPUs IA', badge: '-12%', oldPrice: 64000, price: 56320, stockLeft: 1, specs: '160GB HBM3 a 4 TB/s · Fuente redundante Titanium 3000W', isOffer: true, isTrend: true },
+            { id: 'SV-05', name: 'Acelerador Edge AI Google Coral TPU Dual + NVIDIA Jetson AGX Orin 64GB', subCategory: 'Servidores & GPUs IA', badge: '-20%', oldPrice: 2399, price: 1919, stockLeft: 6, specs: '275 TOPS · Inferencia autónoma en fábrica, drones y robótica', isOffer: true, isTrend: false },
+            { id: 'SV-06', name: 'Tarjeta Aceleradora NVIDIA RTX 6000 Ada Generation 48GB GDDR6 ECC', subCategory: 'Servidores & GPUs IA', badge: '-14%', oldPrice: 7899, price: 6793, stockLeft: 3, specs: '18.176 núcleos CUDA · Diseño Blower para racks multi-GPU', isOffer: true, isTrend: false },
+            { id: 'SV-07', name: 'Workstation Compacta IA Ryzen 9 7950X / 128GB DDR5 / RTX 4090 24GB', subCategory: 'Servidores & GPUs IA', badge: '-24%', oldPrice: 4299, price: 3267, stockLeft: 5, specs: 'Refrigeración líquida silenciosa · Lista para JupyterHub y Docker', isOffer: true, isTrend: true },
+            { id: 'SV-08', name: 'Aceleradora PCIe NVIDIA L4 24GB Tensor Core Low-Profile (72W TDP)', subCategory: 'Servidores & GPUs IA', badge: '-19%', oldPrice: 2850, price: 2308, stockLeft: 4, specs: 'Decodificación vídeo AV1 + IA generativa en servidores 1U/2U', isOffer: true, isTrend: false },
+            { id: 'SV-09', name: 'Nodo Almacenamiento NVMe All-Flash 64TB (8x 8TB U.3 Enterprise RAID)', subCategory: 'Servidores & GPUs IA', badge: '-21%', oldPrice: 6800, price: 5372, stockLeft: 3, specs: 'Elimina cuellos de botella de lectura de datasets en entrenamiento', isOffer: true, isTrend: false },
+            { id: 'SV-10', name: 'Estación Análisis In-Memory 1TB DDR5 ECC + 4TB NVMe para DuckDB/Polars', subCategory: 'Servidores & GPUs IA', badge: '-23%', oldPrice: 5400, price: 4158, stockLeft: 4, specs: 'Procesa miles de millones de filas en memoria sin clúster Spark', isOffer: true, isTrend: false },
+            { id: 'SV-11', name: 'Kit Expansión eGPU Thunderbolt 4 / OCuLink + NVIDIA RTX 4060 Ti 16GB', subCategory: 'Servidores & GPUs IA', badge: '-26%', oldPrice: 799, price: 591, stockLeft: 8, specs: 'Añade 16GB de VRAM dedicada a tu portátil de investigación', isOffer: true, isTrend: false },
+
+            // --- 5. APIs & Conectores (11) ---
+            { id: 'AP-01', name: 'API Enriquecimiento Datos Empresas, Balances y CIF Tiempo Real (500k req)', subCategory: 'APIs & Conectores', badge: '-35%', oldPrice: 499, price: 324, stockLeft: 15, specs: 'Facturación, CNAE, riesgo crediticio y administradores en JSON', isOffer: true, isTrend: true },
+            { id: 'AP-02', name: 'API Geocodificación y Matrices Isócronas Alta Frecuencia (2M consultas)', subCategory: 'APIs & Conectores', badge: '-30%', oldPrice: 350, price: 245, stockLeft: 18, specs: 'Tiempos de ruta multimodales y enriquecimiento censal instantáneo', isOffer: true, isTrend: false },
+            { id: 'AP-03', name: 'API OCR Inteligente Facturas, Albaranes y Contratos PDF (100k páginas)', subCategory: 'APIs & Conectores', badge: '-38%', oldPrice: 399, price: 247, stockLeft: 14, specs: 'Tablas anidadas, firmas y validación fiscal automática · Zero data retention', isOffer: true, isTrend: true },
+            { id: 'AP-04', name: 'API Precios Materias Primas, Energía y Cripto Baja Latencia (WebSocket)', subCategory: 'APIs & Conectores', badge: '-28%', oldPrice: 590, price: 424, stockLeft: 10, specs: 'Latencia <15ms · Histórico de 5 años incluido para backtesting', isOffer: true, isTrend: false },
+            { id: 'AP-05', name: 'SDK Conector Universal SAP S/4HANA & Oracle ERP a Data Warehouse', subCategory: 'APIs & Conectores', badge: '-25%', oldPrice: 890, price: 667, stockLeft: 7, specs: 'Extracción incremental sin impacto en producción hacia BigQuery/Snowflake', isOffer: true, isTrend: false },
+            { id: 'AP-06', name: 'API Embeddings & Reranking Semántico Multilingüe (1.000M Tokens)', subCategory: 'APIs & Conectores', badge: '-40%', oldPrice: 220, price: 132, stockLeft: 22, specs: 'Compatible SDK OpenAI · Mejora precisión de recuperación un +24%', isOffer: true, isTrend: true },
+            { id: 'AP-07', name: 'API Detección Anomalías & Scoring de Riesgo IP/Dispositivo (1M evals)', subCategory: 'APIs & Conectores', badge: '-32%', oldPrice: 299, price: 203, stockLeft: 16, specs: 'Detecta bots, VPNs residenciales y patrones de abuso en <8ms', isOffer: true, isTrend: false },
+            { id: 'AP-08', name: 'Conector Python/Rust Zero-Copy Postgres, ClickHouse & DuckDB a Arrow', subCategory: 'APIs & Conectores', badge: '-34%', oldPrice: 179, price: 118, stockLeft: 20, specs: 'Transferencia directa a memoria GPU/CPU sin serialización JSON', isOffer: true, isTrend: false },
+            { id: 'AP-09', name: 'API Monitorización Noticias, Boletines y Sentimiento Sectorial en Vivo', subCategory: 'APIs & Conectores', badge: '-29%', oldPrice: 340, price: 241, stockLeft: 13, specs: 'Más de 15.000 fuentes indexadas con extracción de entidades y tono', isOffer: true, isTrend: false },
+            { id: 'AP-10', name: 'API Validación, Normalización y Deduplicación de Registros CRM (2M filas)', subCategory: 'APIs & Conectores', badge: '-36%', oldPrice: 249, price: 159, stockLeft: 17, specs: 'Record linkage probabilístico con embeddings de nombres y direcciones', isOffer: true, isTrend: false },
+            { id: 'AP-11', name: 'API Predicción Meteorológica Hiperlocal & Radiación Solar (1km Grid)', subCategory: 'APIs & Conectores', badge: '-27%', oldPrice: 280, price: 204, stockLeft: 12, specs: 'Horizonte 14 días hora a hora para modelos de demanda y renovables', isOffer: true, isTrend: false },
+
+            // --- 6. Notebooks & Scripts (11) ---
+            { id: 'NB-01', name: 'Pack 50 Notebooks Jupyter Feature Engineering Avanzado (Tabulares & Series)', subCategory: 'Notebooks & Scripts', badge: '-40%', oldPrice: 149, price: 89, stockLeft: 25, specs: 'Target encoding sin leakage, lag features, espectrales y selección SHAP', isOffer: true, isTrend: true },
+            { id: 'NB-02', name: 'Suite Scripts Optimización Hiperparámetros Optuna + Ray Tune Distribuido', subCategory: 'Notebooks & Scripts', badge: '-35%', oldPrice: 179, price: 116, stockLeft: 20, specs: 'Pruning ASHA, búsqueda multi-objetivo y logging directo en MLflow', isOffer: true, isTrend: true },
+            { id: 'NB-03', name: 'Plantilla A/B Testing Bayesiano, CUPED y Causal Inference (PyMC + DoWhy)', subCategory: 'Notebooks & Scripts', badge: '-33%', oldPrice: 189, price: 126, stockLeft: 18, specs: 'Reducción de varianza CUPED, uplift modeling y control sintético', isOffer: true, isTrend: true },
+            { id: 'NB-04', name: 'Toolkit Detección Anomalías y Data/Concept Drift en Producción (Evidently + River)', subCategory: 'Notebooks & Scripts', badge: '-30%', oldPrice: 210, price: 147, stockLeft: 15, specs: 'Tests KS, Wasserstein, PSI y alertas automáticas antes de degradar KPI', isOffer: true, isTrend: false },
+            { id: 'NB-05', name: 'Librería Visualización Estadística Publicación Científica (Matplotlib/Altair Pro)', subCategory: 'Notebooks & Scripts', badge: '-38%', oldPrice: 119, price: 73, stockLeft: 24, specs: '60 plantillas vectoriales: intervalos HPD, matrices SHAP y mapas', isOffer: true, isTrend: false },
+            { id: 'NB-06', name: 'Colección 30 Notebooks Fine-Tuning QLoRA, DPO y Cuantización GGUF/AWQ', subCategory: 'Notebooks & Scripts', badge: '-36%', oldPrice: 169, price: 108, stockLeft: 19, specs: 'Listos para ejecutar en 1x RTX 4090 o Google Colab Pro+', isOffer: true, isTrend: true },
+            { id: 'NB-07', name: 'Scripts Perfilado EDA Instantáneo en Polars & DuckDB para Datasets >100GB', subCategory: 'Notebooks & Scripts', badge: '-42%', oldPrice: 129, price: 74, stockLeft: 22, specs: 'Audita nulos, cardinalidad, outliers y correlaciones en segundos', isOffer: true, isTrend: false },
+            { id: 'NB-08', name: 'Suite Explicabilidad de Modelos: SHAP, LIME, Contrafactuales y Fairness', subCategory: 'Notebooks & Scripts', badge: '-29%', oldPrice: 199, price: 141, stockLeft: 14, specs: 'Auditoría de sesgos demográficos e informes regulatorios automáticos', isOffer: true, isTrend: false },
+            { id: 'NB-09', name: 'Notebooks Optimización Combinatoria & Investigación Operativa (OR-Tools + Pyomo)', subCategory: 'Notebooks & Scripts', badge: '-31%', oldPrice: 179, price: 123, stockLeft: 16, specs: 'VRP logística, planificación de turnos y asignación óptima de precios', isOffer: true, isTrend: false },
+            { id: 'NB-10', name: 'Pack Scripts Evaluación Automática de LLMs & RAG (LLM-as-a-Judge)', subCategory: 'Notebooks & Scripts', badge: '-34%', oldPrice: 159, price: 104, stockLeft: 18, specs: 'Mide fidelidad, relevancia y alucinaciones en CI/CD antes de desplegar', isOffer: true, isTrend: false },
+            { id: 'NB-11', name: 'Plantillas Forecasting Jerárquico & Reconciliación Probabilística (StatsForecast)', subCategory: 'Notebooks & Scripts', badge: '-37%', oldPrice: 149, price: 93, stockLeft: 21, specs: 'Predicción coherente a nivel SKU, tienda y región en minutos', isOffer: true, isTrend: false },
+
+            // --- 7. Cloud & Compute (11) ---
+            { id: 'CL-01', name: 'Bono 5.000 Horas GPU NVIDIA H100 Spot Cluster (80GB HBM3 · Sin Caducidad)', subCategory: 'Cloud & Compute', badge: '-32%', oldPrice: 9900, price: 6732, stockLeft: 5, specs: '1,34€/hora efectiva · InfiniBand 3.2 Tbps · PyTorch y DeepSpeed listos', isOffer: true, isTrend: true },
+            { id: 'CL-02', name: 'Instancia Dedicada Snowflake + Databricks Enterprise (12 Meses · 10k Créditos)', subCategory: 'Cloud & Compute', badge: '-25%', oldPrice: 6400, price: 4800, stockLeft: 6, specs: 'Región UE (Frankfurt/Madrid) · Unity Catalog y Delta Live Tables', isOffer: true, isTrend: true },
+            { id: 'CL-03', name: 'Almacenamiento Object Storage S3 50TB Alta Velocidad (1 Año · 0€ Egress)', subCategory: 'Cloud & Compute', badge: '-40%', oldPrice: 1490, price: 894, stockLeft: 12, specs: 'Ideal para Data Lakes Parquet, checkpoints de modelos y backups DVC', isOffer: true, isTrend: false },
+            { id: 'CL-04', name: 'Cluster Kubernetes Gestionado para Inferencia vLLM & Triton (3 Nodos A100, 1 Mes)', subCategory: 'Cloud & Compute', badge: '-28%', oldPrice: 3200, price: 2304, stockLeft: 7, specs: 'Escalado a cero en segundos · Balanceo KV-Cache y métricas Prometheus', isOffer: true, isTrend: true },
+            { id: 'CL-05', name: 'Base de Datos Vectorial Serverless 500M Vectores (Qdrant / Milvus, 1 Año)', subCategory: 'Cloud & Compute', badge: '-35%', oldPrice: 1190, price: 773, stockLeft: 10, specs: 'Cuantización escalar/binaria · Latencia p99 <9ms · Snapshots diarios', isOffer: true, isTrend: true },
+            { id: 'CL-06', name: 'Bono 2.000 Horas GPU NVIDIA RTX 4090 24GB Dedicada (Jupyter & SSH)', subCategory: 'Cloud & Compute', badge: '-38%', oldPrice: 1120, price: 694, stockLeft: 16, specs: 'Volumen persistente NVMe 1TB incluido · Arranque en 8 segundos', isOffer: true, isTrend: false },
+            { id: 'CL-07', name: 'Cluster Apache Spark / Ray Gestionado 64 vCPU + 512GB RAM (500 Horas)', subCategory: 'Cloud & Compute', badge: '-30%', oldPrice: 890, price: 623, stockLeft: 11, specs: 'Procesa terabytes de logs y joins masivos sin gestionar infraestructura', isOffer: true, isTrend: false },
+            { id: 'CL-08', name: 'Servidor Bare-Metal Dedicado Dual EPYC / 1TB RAM / 2x H100 NVL (1 Mes)', subCategory: 'Cloud & Compute', badge: '-20%', oldPrice: 5900, price: 4720, stockLeft: 3, specs: '188GB HBM3 totales · Red privada 25Gbps · Aislamiento físico total', isOffer: true, isTrend: false },
+            { id: 'CL-09', name: 'Workspace Colaborativo MLflow + Weights & Biases Self-Hosted (25 Usuarios, 1 Año)', subCategory: 'Cloud & Compute', badge: '-33%', oldPrice: 990, price: 663, stockLeft: 9, specs: 'Registro de experimentos, artefactos y model registry ilimitado', isOffer: true, isTrend: false },
+            { id: 'CL-10', name: 'Bono 1.000 Horas TPU v5e Pod Slice (8 Chips · JAX & PyTorch XLA)', subCategory: 'Cloud & Compute', badge: '-27%', oldPrice: 2400, price: 1752, stockLeft: 6, specs: 'Máxima eficiencia energética para entrenamiento de Transformers', isOffer: true, isTrend: false },
+            { id: 'CL-11', name: 'Endpoint Serverless Whisper-Large-v3 & Visión Batch (5.000 Horas Audio)', subCategory: 'Cloud & Compute', badge: '-36%', oldPrice: 450, price: 288, stockLeft: 15, specs: 'Transcripción y diarización masiva con webhooks al finalizar', isOffer: true, isTrend: false },
+
+            // --- 8. Libros & Papers (11) ---
+            { id: 'LB-01', name: "Edición Coleccionista 'The Elements of Statistical Learning' (Tapa Dura)", subCategory: 'Libros & Papers', badge: '-25%', oldPrice: 89, price: 66, stockLeft: 12, specs: 'Hastie, Tibshirani & Friedman · Impresión a todo color + marcapáginas', isOffer: true, isTrend: true },
+            { id: 'LB-02', name: "Guía Práctica 'Designing Data-Intensive Applications' Anotada (Kleppmann)", subCategory: 'Libros & Papers', badge: '-28%', oldPrice: 69, price: 49, stockLeft: 16, specs: 'Incluye póster desplegable de arquitecturas streaming y consenso', isOffer: true, isTrend: true },
+            { id: 'LB-03', name: 'Compendio Matemático Álgebra Lineal y Cálculo Tensorial para IA', subCategory: 'Libros & Papers', badge: '-30%', oldPrice: 64, price: 44, stockLeft: 14, specs: 'SVD, autovalores, backpropagation matricial y geometría de variedades', isOffer: true, isTrend: false },
+            { id: 'LB-04', name: "Manual 'Deep Learning' Goodfellow + Cuaderno Ejercicios Resueltos", subCategory: 'Libros & Papers', badge: '-24%', oldPrice: 95, price: 72, stockLeft: 9, specs: 'Optimización estocástica, CNNs, Transformers y modelos generativos', isOffer: true, isTrend: true },
+            { id: 'LB-05', name: 'Atlas Visual de Algoritmos de Machine Learning (Impresión Gran Formato)', subCategory: 'Libros & Papers', badge: '-32%', oldPrice: 59, price: 40, stockLeft: 15, specs: 'Diagramas de flujo, complejidad Big-O y cuándo usar cada modelo', isOffer: true, isTrend: false },
+            { id: 'LB-06', name: 'Antología Impresa: 60 Papers Fundamentales de IA & LLMs (2012–2026)', subCategory: 'Libros & Papers', badge: '-22%', oldPrice: 99, price: 77, stockLeft: 7, specs: 'Encuadernado cosido · Attention, LoRA, FlashAttention, Diffusion y MoE', isOffer: true, isTrend: true },
+            { id: 'LB-07', name: "Pack Inferencia Causal: 'The Mixtape' + 'Causal Inference in Python'", subCategory: 'Libros & Papers', badge: '-27%', oldPrice: 84, price: 61, stockLeft: 11, specs: 'DID, variables instrumentales, propensity score y experimentos A/B', isOffer: true, isTrend: false },
+            { id: 'LB-08', name: "Pattern Recognition and Machine Learning (Christopher Bishop) Tapa Dura", subCategory: 'Libros & Papers', badge: '-23%', oldPrice: 88, price: 67, stockLeft: 10, specs: 'Tratado de referencia en métodos kernel, EM y modelos gráficos', isOffer: true, isTrend: false },
+            { id: 'LB-09', name: 'Probabilistic Machine Learning: An Introduction (Kevin P. Murphy)', subCategory: 'Libros & Papers', badge: '-21%', oldPrice: 98, price: 77, stockLeft: 8, specs: 'Más de 800 páginas actualizadas con inferencia variacional y redes', isOffer: true, isTrend: false },
+            { id: 'LB-10', name: 'Building Machine Learning Powered Applications & MLOps (O’Reilly Pack)', subCategory: 'Libros & Papers', badge: '-29%', oldPrice: 79, price: 56, stockLeft: 13, specs: 'De la validación offline a monitorización, drift y gobernanza', isOffer: true, isTrend: false },
+            { id: 'LB-11', name: 'Bitácora de Experimentos Variable Cero (Papel Punteado 120g + Chuletas)', subCategory: 'Libros & Papers', badge: '-35%', oldPrice: 26, price: 16, stockLeft: 25, specs: 'Incluye tablas de distribuciones, métricas ROC/PR y comandos Git/SQL', isOffer: true, isTrend: false },
+
+            // --- 9. Formación & Certs (11) ---
+            { id: 'ED-01', name: 'Bootcamp Intensivo MLOps y Despliegue de LLMs en Producción (140h)', subCategory: 'Formación & Certs', badge: '-38%', oldPrice: 549, price: 340, stockLeft: 12, specs: 'vLLM, Kubernetes, Ray, MLflow, Qdrant y CI/CD con proyecto real', isOffer: true, isTrend: true },
+            { id: 'ED-02', name: 'Especialización Series Temporales y Econometría Bayesiana con PyMC (80h)', subCategory: 'Formación & Certs', badge: '-32%', oldPrice: 369, price: 250, stockLeft: 14, specs: 'Modelos estructurales, TFT, incertidumbre y optimización de inventario', isOffer: true, isTrend: false },
+            { id: 'ED-03', name: 'Certificación Arquitectura Big Data Spark, Iceberg y Kafka (Con Examen)', subCategory: 'Formación & Certs', badge: '-30%', oldPrice: 429, price: 300, stockLeft: 10, specs: 'Credencial verificable + laboratorio práctico sobre clúster real', isOffer: true, isTrend: true },
+            { id: 'ED-04', name: 'Taller Práctico Inferencia Causal y Experimentación A/B en Producto (45h)', subCategory: 'Formación & Certs', badge: '-35%', oldPrice: 299, price: 194, stockLeft: 16, specs: 'Casos reales de fintech y marketplaces cuando no puedes aleatorizar', isOffer: true, isTrend: true },
+            { id: 'ED-05', name: 'Mentoría 1-a-1 Portfolio Científico de Datos Senior (6 Sesiones + Revisión)', subCategory: 'Formación & Certs', badge: '-25%', oldPrice: 480, price: 360, stockLeft: 5, specs: 'Con Principal Data Scientists · Diseño de arquitectura, código y CV', isOffer: true, isTrend: false },
+            { id: 'ED-06', name: 'Curso Alto Rendimiento en Python: Polars, DuckDB, Numba y Rust PyO3', subCategory: 'Formación & Certs', badge: '-40%', oldPrice: 229, price: 137, stockLeft: 18, specs: 'Procesa cientos de gigabytes sin quedarte sin RAM ni esperar horas', isOffer: true, isTrend: true },
+            { id: 'ED-07', name: 'Especialización Visión Artificial Industrial & Edge AI con PyTorch + TensorRT', subCategory: 'Formación & Certs', badge: '-33%', oldPrice: 349, price: 233, stockLeft: 13, specs: 'Detección, segmentación, cuantización INT8 y despliegue en Jetson', isOffer: true, isTrend: false },
+            { id: 'ED-08', name: 'Bootcamp Preparación Entrevistas ML System Design & Estadística Big Tech', subCategory: 'Formación & Certs', badge: '-36%', oldPrice: 319, price: 204, stockLeft: 11, specs: '30 simulacros de diseño de sistemas de recomendación, fraude y RAG', isOffer: true, isTrend: false },
+            { id: 'ED-09', name: 'Curso Fine-Tuning Eficiente & Alineamiento: QLoRA, DPO, GRPO y Evaluación', subCategory: 'Formación & Certs', badge: '-34%', oldPrice: 279, price: 184, stockLeft: 15, specs: 'Incluye 100 horas de GPU RTX 4090 para entrenar tus propios modelos', isOffer: true, isTrend: false },
+            { id: 'ED-10', name: 'Certificación Oficial Variable Cero: Lead AI & Data Architect', subCategory: 'Formación & Certs', badge: '-28%', oldPrice: 599, price: 431, stockLeft: 7, specs: 'Prueba técnica de 6 horas evaluada por tribunal de arquitectos IA', isOffer: true, isTrend: false },
+            { id: 'ED-11', name: 'Pase Anual Variable Cero Data Academy (Acceso Total + Clúster GPU)', subCategory: 'Formación & Certs', badge: '-50%', oldPrice: 899, price: 449, stockLeft: 8, specs: 'Todos los cursos, talleres en vivo y actualizaciones mensuales incluidos', isOffer: true, isTrend: true }
+        ];
+
+        // Estado de la aplicación
+        let cart = [];
+        let currentFilter = 'todos';
+        let currentSearch = '';
+        let selectedStars = 5;
+        let reviewsList = [
+            { author: 'Dra. Elena Vidal', rating: 5, comment: 'El Corpus Lingüístico Español 500B Tokens viene deduplicado con MinHash y listo en Arrow. Nos ahorró 3 semanas de limpieza.', date: 'Hace 2 horas' },
+            { author: 'Carlos_MLOps', rating: 5, comment: 'Desplegamos la plantilla Lakehouse Iceberg + Spark en una tarde. Cero fricción y soporte de Data Engineers impecable.', date: 'Ayer' },
+            { author: 'SofiaQuant', rating: 5, comment: 'El Dataset Financiero Tick-by-Tick NYSE/NASDAQ tiene una calidad brutal, sin gaps y particionado perfecto para Polars.', date: 'Hace 3 días' }
+        ];
+
+        // ==========================================
+        // 2. RENDERIZADO DE TARJETAS CON CABECERA SKU
+        // ==========================================
+        function renderProducts() {
+            const grid = document.getElementById('productsGrid');
+            const emptyState = document.getElementById('emptyState');
+            const visibleCount = document.getElementById('visibleCount');
+
+            const filtered = productsDB.filter(p => {
+                const matchesCategory =
+                    currentFilter === 'todos' ||
+                    (currentFilter === 'ofertas' && p.isOffer) ||
+                    (currentFilter === 'tendencias' && p.isTrend) ||
+                    p.subCategory === currentFilter;
+
+                const q = currentSearch.toLowerCase().trim();
+                const matchesSearch =
+                    !q ||
+                    p.id.toLowerCase().includes(q) ||
+                    p.name.toLowerCase().includes(q) ||
+                    p.subCategory.toLowerCase().includes(q) ||
+                    p.specs.toLowerCase().includes(q);
+
+                return matchesCategory && matchesSearch;
+            });
+
+            visibleCount.textContent = filtered.length;
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+
+            grid.innerHTML = filtered.map(product => `
+                <article class="card-shine rounded-2xl bg-vc-surface border border-vc-border hover:border-vc-yellow/70 overflow-hidden flex flex-col justify-between group">
+                    <div>
+                        <!-- Cabecera limpia de Código / SKU y Categoría -->
+                        <div class="px-4 py-2.5 bg-vc-bg/90 border-b border-vc-border flex items-center justify-between gap-2">
+                            <div class="flex items-center gap-2 min-w-0">
+                                <span class="px-2 py-0.5 rounded-md bg-vc-blue/20 border border-vc-blue/40 font-display text-[11px] font-bold text-vc-sky shrink-0">
+                                    ${product.id}
+                                </span>
+                                <span class="text-[11px] font-semibold text-slate-400 truncate">
+                                    ${product.subCategory}
+                                </span>
+                            </div>
+                            <span class="px-2 py-0.5 rounded-md bg-vc-yellow text-vc-bg text-[11px] font-extrabold shrink-0">
+                                ${product.badge}
+                            </span>
+                        </div>
+
+                        <!-- Cuerpo de la tarjeta -->
+                        <div class="p-4 sm:p-5">
+                            <h3 class="font-display text-base font-bold text-white group-hover:text-vc-yellow transition-colors leading-snug">
+                                ${product.name}
+                            </h3>
+                            <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+                                ${product.specs}
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Pie con precio y botón Añadir -->
+                    <div class="px-4 sm:px-5 pb-4 sm:pb-5 pt-3 border-t border-vc-border/60 flex items-center justify-between gap-2">
+                        <div>
+                            <div class="flex items-center gap-2 text-xs">
+                                <span class="text-slate-500 line-through">${product.oldPrice} €</span>
+                                <span class="text-vc-sky font-semibold">${product.stockLeft} disp.</span>
+                            </div>
+                            <span class="font-display text-2xl font-bold text-white">${product.price} €</span>
+                        </div>
+
+                        <button onclick="addToCart('${product.id}')"
+                            class="px-3.5 py-2.5 rounded-xl bg-vc-blue hover:bg-vc-yellow text-white hover:text-vc-bg font-bold text-xs shadow-md transition-all cursor-pointer shrink-0">
+                            + Añadir
+                        </button>
+                    </div>
+                </article>
+            `).join('');
+        }
+
+        function filterShowcase(filterType) {
+            currentFilter = filterType;
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                if (btn.getAttribute('data-filter') === filterType) {
+                    btn.className = 'filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-vc-yellow text-vc-bg shadow-md transition-all';
+                } else {
+                    btn.className = 'filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-vc-surface text-slate-200 hover:border-vc-sky border border-vc-border transition-all';
+                }
+            });
+            renderProducts();
+        }
+
+        function handleSearch(val) {
+            currentSearch = val;
+            renderProducts();
+        }
+
+        function resetFilters() {
+            currentSearch = '';
+            const input = document.getElementById('searchInput');
+            if (input) input.value = '';
+            filterShowcase('todos');
+        }
+
+        // ==========================================
+        // 3. GESTIÓN DE LA CESTA LATERAL
+        // ==========================================
+        function addToCart(productId) {
+            const item = productsDB.find(p => p.id === productId);
+            if (!item) return;
+
+            const existing = cart.find(c => c.id === productId);
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({ ...item, qty: 1 });
+            }
+            updateCartUI();
+            showToast(`Añadido (${item.id}): ${item.name.slice(0, 32)}...`);
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const badge = document.getElementById('cartBadge');
+            const container = document.getElementById('cartItemsContainer');
+            const totalEl = document.getElementById('cartTotal');
+
+            const totalQty = cart.reduce((sum, i) => sum + i.qty, 0);
+            const totalEur = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
+
+            badge.textContent = totalQty;
+            totalEl.textContent = `${totalEur.toLocaleString('es-ES')} €`;
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="py-12 text-center">
+                        <p class="text-slate-300 text-sm font-semibold">Tu cesta está vacía</p>
+                        <p class="text-slate-500 text-xs mt-1">Añade datasets, pesos IA o horas GPU del catálogo.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = cart.map(item => `
+                <div class="p-3.5 rounded-xl bg-vc-bg border border-vc-border flex items-start justify-between gap-3">
+                    <div>
+                        <span class="font-display text-[11px] font-bold text-vc-sky">${item.id}</span>
+                        <p class="text-xs font-bold text-white leading-snug mt-0.5">${item.name}</p>
+                        <p class="text-xs font-extrabold text-vc-yellow mt-1">${item.qty} × ${item.price} €</p>
+                    </div>
+                    <button onclick="removeFromCart('${item.id}')" class="text-xs text-slate-400 hover:text-vc-yellow font-bold px-2 py-1">
+                        Quitar
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function toggleCart() {
+            document.getElementById('cartDrawer').classList.toggle('hidden');
+        }
+
+        function checkoutCart() {
+            if (cart.length === 0) {
+                showToast('Añade algún recurso antes de tramitar el pedido');
+                return;
+            }
+            cart = [];
+            updateCartUI();
+            toggleCart();
+            showToast('¡Pedido confirmado! Credenciales API y acceso S3 generados.');
+        }
+
+        // ==========================================
+        // 4. MODALES DE LOS 8 BLOQUES
+        // ==========================================
+        function openModal(key) {
+            const modal = document.getElementById('sectionModal');
+            const content = document.getElementById('modalContent');
+
+            const templates = {
+                catalogo: `
+                    <span class="inline-block px-3 py-1 rounded-full bg-vc-blue/20 text-vc-sky text-xs font-bold mb-3">9 Categorías Especializadas</span>
+                    <h3 class="font-display text-2xl font-bold text-white">Catálogo Variable Cero</h3>
+                    <p class="text-slate-400 text-sm mt-1">Selecciona una categoría para filtrar los 100 productos:</p>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 my-5">
+                        ${[
+                            ['Datasets & Corpus', 'Finanzas, LLM & Salud'],
+                            ['Modelos IA & Weights', 'LLaMA-3, Visión & ONNX'],
+                            ['Pipelines & ETL', 'Iceberg, dbt & RAG'],
+                            ['Servidores & GPUs IA', 'RTX 6000 Ada & H100'],
+                            ['APIs & Conectores', 'OCR, Geo & ERP CDC'],
+                            ['Notebooks & Scripts', 'Optuna, Causal & SHAP'],
+                            ['Cloud & Compute', 'Spot H100, S3 & Qdrant'],
+                            ['Libros & Papers', 'Hastie, Kleppmann & MIT'],
+                            ['Formación & Certs', 'Bootcamps & Mentorías']
+                        ].map(([cat, desc]) => `
+                            <button onclick="closeModal(); filterShowcase('${cat}'); document.getElementById('escaparate').scrollIntoView({behavior:'smooth'})"
+                                class="p-3.5 rounded-xl bg-vc-bg hover:border-vc-yellow border border-vc-border text-left transition-all cursor-pointer">
+                                <span class="text-xs font-bold text-white block">${cat}</span>
+                                <span class="text-[11px] text-vc-sky mt-0.5 block">${desc}</span>
+                            </button>
+                        `).join('')}
+                    </div>
+                `,
+                tendencias: `
+                    <span class="inline-block px-3 py-1 rounded-full bg-vc-yellow/15 text-vc-yellow text-xs font-bold mb-3">Ranking en Tiempo Real</span>
+                    <h3 class="font-display text-2xl font-bold text-white">Tendencias Data Science & IA</h3>
+                    <p class="text-slate-400 text-sm mt-1">Los 3 recursos más desplegados hoy en Variable Cero:</p>
+                    <div class="space-y-3 my-5">
+                        ${productsDB.filter(p => p.isTrend).slice(0, 3).map((p, i) => `
+                            <div class="p-4 rounded-xl bg-vc-bg border border-vc-border flex items-center justify-between gap-3">
+                                <div>
+                                    <span class="text-[11px] font-bold text-vc-yellow">#0${i + 1} · ${p.id}</span>
+                                    <p class="text-sm font-bold text-white">${p.name}</p>
+                                    <span class="font-display text-base font-bold text-vc-sky">${p.price} €</span>
+                                </div>
+                                <button onclick="addToCart('${p.id}')" class="px-3.5 py-2 rounded-xl bg-vc-yellow text-vc-bg font-bold text-xs shrink-0">+ Añadir</button>
+                            </div>
+                        `).join('')}
+                    </div>
+                `,
+                ofertas: `
+                    <span class="inline-block px-3 py-1 rounded-full bg-vc-yellow text-vc-bg text-xs font-extrabold mb-3">Data Week Activa</span>
+                    <h3 class="font-display text-2xl font-bold text-white">Ofertas & Cupones Promocionales</h3>
+                    <p class="text-slate-400 text-sm mt-1">Copia tu código y aplícalo en tu compra:</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 my-4">
+                        <div class="p-3.5 rounded-xl bg-vc-bg border border-vc-yellow/60 flex items-center justify-between">
+                            <div>
+                                <p class="text-xs font-bold text-white">30€ DTO Directos</p>
+                                <p class="font-display text-sm text-vc-yellow font-bold">TENSOR30</p>
+                            </div>
+                            <button onclick="copyCoupon('TENSOR30')" class="px-3 py-1.5 rounded-lg bg-vc-yellow text-vc-bg text-xs font-extrabold">Copiar</button>
+                        </div>
+                        <div class="p-3.5 rounded-xl bg-vc-bg border border-vc-sky/60 flex items-center justify-between">
+                            <div>
+                                <p class="text-xs font-bold text-white">25% Extra Modelos/APIs</p>
+                                <p class="font-display text-sm text-vc-sky font-bold">CERO25AI</p>
+                            </div>
+                            <button onclick="copyCoupon('CERO25AI')" class="px-3 py-1.5 rounded-lg bg-vc-blue text-white text-xs font-extrabold">Copiar</button>
+                        </div>
+                    </div>
+                    <div class="space-y-2.5">
+                        ${productsDB.filter(p => p.isOffer).slice(0, 2).map(p => `
+                            <div class="p-3.5 rounded-xl bg-vc-bg border border-vc-border flex items-center justify-between gap-3">
+                                <div>
+                                    <span class="text-[10px] bg-vc-yellow text-vc-bg font-extrabold px-2 py-0.5 rounded">${p.badge}</span>
+                                    <p class="text-xs font-bold text-white mt-1">${p.name}</p>
+                                    <p class="font-display text-sm font-bold text-vc-yellow">${p.price} € <span class="text-xs text-slate-500 line-through font-normal">${p.oldPrice} €</span></p>
+                                </div>
+                                <button onclick="addToCart('${p.id}')" class="px-3.5 py-2 rounded-xl bg-vc-blue text-white text-xs font-bold shrink-0">+ Añadir</button>
+                            </div>
+                        `).join('')}
+                    </div>
+                `,
+                localizacion: `
+                    <span class="inline-block px-3 py-1 rounded-full bg-vc-blue/20 text-vc-sky text-xs font-bold mb-3">Sede Física & Benchmarking</span>
+                    <h3 class="font-display text-2xl font-bold text-white">Variable Cero Data Hub</h3>
+                    <p class="text-slate-400 text-sm mt-1">Visítanos para probar estaciones Multi-GPU o recoger pedidos:</p>
+                    <div class="my-5 p-4 rounded-2xl bg-vc-bg border border-vc-border space-y-2.5 text-sm">
+                        <p><strong class="text-white">Dirección:</strong> Avenida del Tensor 0, Parque Tecnológico Cartuja, Sevilla</p>
+                        <p><strong class="text-white">Horario Data Week:</strong> Lunes a Domingo de 09:00 a 22:00 h</p>
+                        <p><strong class="text-white">Teléfono Lab:</strong> <span class="text-vc-yellow font-bold">954 00 70 80</span></p>
+                    </div>
+                `,
+                consultoria: `
+                    <span class="inline-block px-3 py-1 rounded-full bg-vc-yellow/15 text-vc-yellow text-xs font-bold mb-3">Ingeniería de Datos e IA</span>
+                    <h3 class="font-display text-2xl font-bold text-white">Consultoría & Pipelines a Medida</h3>
+                    <div class="space-y-3 my-5 text-sm">
+                        <div class="p-4 rounded-xl bg-vc-bg border border-vc-border flex justify-between items-center">
+                            <div>
+                                <p class="font-bold text-white">Auditoría de Calidad de Datos & Esquemas</p>
+                                <p class="text-xs text-slate-400">Detección de data leakage, drift y optimización Parquet/Iceberg.</p>
+                            </div>
+                            <span class="font-display text-lg font-bold text-vc-yellow shrink-0 ml-3">290 €</span>
+                        </div>
+                        <div class="p-4 rounded-xl bg-vc-bg border border-vc-yellow flex justify-between items-center">
+                            <div>
+                                <span class="text-[10px] bg-vc-yellow text-vc-bg px-2 py-0.5 rounded font-extrabold">MÁS SOLICITADO</span>
+                                <p class="font-bold text-white mt-1">Fine-Tuning Privado LLaMA-3 + Despliegue RAG</p>
+                                <p class="text-xs text-slate-400">Entrenamiento sobre tu corpus documental con Qdrant y vLLM.</p>
+                            </div>
+                            <span class="font-display text-lg font-bold text-vc-sky shrink-0 ml-3">890 €</span>
+                        </div>
+                    </div>
+                    <button onclick="closeModal(); goToContact('consultoria')" class="w-full py-3.5 rounded-xl bg-vc-yellow text-vc-bg font-extrabold text-sm">
+                        Solicitar Presupuesto con Data Engineer
+                    </button>
+                `,
+                garantias: `
+                    <span class="inline-block px-3 py-1 rounded-full bg-vc-blue/20 text-vc-sky text-xs font-bold mb-3">Cobertura Técnica</span>
+                    <h3 class="font-display text-2xl font-bold text-white">Garantía DataShield SLA 99.95%</h3>
+                    <div class="space-y-3 my-5 text-sm">
+                        <div class="p-3.5 rounded-xl bg-vc-bg border border-vc-border">
+                            <p class="font-bold text-white">SLA 99.95% en APIs & Clústeres Compute</p>
+                            <p class="text-xs text-slate-400 mt-1">Compensación automática del 200% en créditos GPU ante cualquier incidencia.</p>
+                        </div>
+                        <div class="p-3.5 rounded-xl bg-vc-bg border border-vc-border">
+                            <p class="font-bold text-white">Integridad SHA-256 y Cumplimiento GDPR</p>
+                            <p class="text-xs text-slate-400 mt-1">Todos nuestros datasets están auditados y libres de información personal (PII).</p>
+                        </div>
+                    </div>
+                    <button onclick="closeModal(); goToContact('garantias')" class="w-full py-3 rounded-xl bg-vc-bg border border-vc-yellow/50 text-vc-yellow font-bold text-sm">
+                        Contactar con Soporte SLA
+                    </button>
+                `,
+                devoluciones: `
+                    <span class="inline-block px-3 py-1 rounded-full bg-vc-yellow/15 text-vc-yellow text-xs font-bold mb-3">Flexibilidad Total</span>
+                    <h3 class="font-display text-2xl font-bold text-white">Política de Devoluciones y Canje</h3>
+                    <div class="my-5 p-4 rounded-2xl bg-vc-bg border border-vc-border space-y-3 text-sm text-slate-300">
+                        <p><strong class="text-vc-yellow">Créditos GPU & APIs:</strong> Reembolso íntegro del 100% de las horas o tokens no consumidos.</p>
+                        <p><strong class="text-vc-yellow">Datasets & Pesos IA:</strong> Muestra gratuita del 5% del esquema antes de la descarga completa.</p>
+                        <p><strong class="text-vc-yellow">Servidores & Nodos:</strong> Periodo de prueba ampliado hasta el 15 de enero.</p>
+                    </div>
+                    <button onclick="closeModal(); goToContact('devoluciones')" class="w-full py-3.5 rounded-xl bg-vc-blue text-white font-bold text-sm">
+                        Tramitar Devolución o Canje
+                    </button>
+                `,
+                valoranos: `
+                    <span class="inline-block px-3 py-1 rounded-full bg-vc-yellow/15 text-vc-yellow text-xs font-bold mb-3">Comunidad Variable Cero</span>
+                    <h3 class="font-display text-2xl font-bold text-white">Valóranos y Lee Reseñas</h3>
+                    <div class="my-4 p-4 rounded-2xl bg-vc-bg border border-vc-border">
+                        <div class="flex items-center justify-center gap-2 mb-3">
+                            ${[1, 2, 3, 4, 5].map(n => `
+                                <button type="button" onclick="setStars(${n})" data-star="${n}" class="modal-star text-2xl text-vc-yellow transition-transform hover:scale-110">★</button>
+                            `).join('')}
+                        </div>
+                        <input type="text" id="reviewAuthor" placeholder="Tu nombre o usuario (ej. Dr_Tensor)" class="w-full px-3.5 py-2 rounded-xl bg-vc-surface border border-vc-border text-xs text-white mb-2 focus:outline-none focus:border-vc-yellow">
+                        <textarea id="reviewComment" rows="2" placeholder="Cuéntanos tu experiencia con nuestros datasets, modelos o servidores..." class="w-full px-3.5 py-2 rounded-xl bg-vc-surface border border-vc-border text-xs text-white mb-3 focus:outline-none focus:border-vc-yellow"></textarea>
+                        <button onclick="addLiveReview()" class="w-full py-2.5 rounded-xl bg-vc-yellow text-vc-bg font-extrabold text-xs">
+                            Publicar Reseña
+                        </button>
+                    </div>
+                    <div class="space-y-2.5 max-h-48 overflow-y-auto pr-1">
+                        ${reviewsList.map(r => `
+                            <div class="p-3 rounded-xl bg-vc-bg border border-vc-border text-xs">
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="font-bold text-white">${r.author} <span class="text-vc-yellow ml-1">${'★'.repeat(r.rating)}</span></span>
+                                    <span class="text-slate-500 text-[10px]">${r.date}</span>
+                                </div>
+                                <p class="text-slate-300">${r.comment}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                `
+            };
+
+            content.innerHTML = templates[key] || '';
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('sectionModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        document.getElementById('sectionModal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+
+        function setStars(n) {
+            selectedStars = n;
+            document.querySelectorAll('.modal-star').forEach(btn => {
+                const val = parseInt(btn.getAttribute('data-star'));
+                btn.classList.toggle('text-vc-yellow', val <= n);
+                btn.classList.toggle('text-slate-700', val > n);
+            });
+        }
+
+        function addLiveReview() {
+            const author = document.getElementById('reviewAuthor').value.trim() || 'Data Scientist Verificado';
+            const comment = document.getElementById('reviewComment').value.trim();
+            if (!comment) {
+                showToast('Escribe tu comentario antes de publicar');
+                return;
+            }
+            reviewsList.unshift({ author, rating: selectedStars, comment, date: 'Ahora mismo' });
+            openModal('valoranos');
+            showToast('¡Gracias! Tu reseña se ha publicado.');
+        }
+
+        // ==========================================
+        // 5. UTILIDADES (CUPONES, CONTADOR, TOAST)
+        // ==========================================
+        function copyCoupon(code) {
+            const input = document.createElement('input');
+            input.value = code;
+            document.body.appendChild(input);
+            input.select();
+            document.execCommand('copy');
+            document.body.removeChild(input);
+            showToast(`Cupón ${code} copiado al portapapeles`);
+        }
+
+        function goToContact(subject) {
+            const select = document.getElementById('contactSubject');
+            if (select) select.value = subject;
+            document.getElementById('contacto').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('contactName').value;
+            e.target.reset();
+            showToast(`Consulta enviada, ${name}. Te responderemos en breve.`);
+        }
+
+        let toastTimeout;
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMessage').textContent = msg;
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.add('translate-y-24', 'opacity-0');
+                toast.classList.remove('translate-y-0', 'opacity-100');
+            }, 3400);
+        }
+
+        function startCountdown() {
+            let seconds = 18 * 3600 + 44 * 60 + 19;
+            const el = document.getElementById('countdownTimer');
+            setInterval(() => {
+                if (seconds <= 0) seconds = 24 * 3600;
+                seconds--;
+                const h = String(Math.floor(seconds / 3600)).padStart(2, '0');
+                const m = String(Math.floor((seconds % 3600) / 60)).padStart(2, '0');
+                const s = String(seconds % 60).padStart(2, '0');
+                if (el) el.textContent = `${h}h : ${m}m : ${s}s`;
+            }, 1000);
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+            updateCartUI();
+            startCountdown();
+        });
+    </script>
+</body>
+</html>
