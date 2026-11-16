@@ -119,6 +119,12 @@
                     <span>Volver al Lobby</span>
                 </a>
 
+                <!-- Enlace rápido Dónde nos situamos -->
+                <a href="#donde-nos-situamos"
+                    class="hidden xl:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-vc-surface hover:bg-vc-card border border-vc-border hover:border-vc-yellow text-xs font-semibold text-slate-200 transition-all">
+                    <span>📍 Dónde nos situamos</span>
+                </a>
+
                 <!-- Botón Contáctanos -->
                 <a href="#contacto"
                     class="hidden lg:inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-vc-surface hover:bg-vc-card border border-vc-border hover:border-vc-sky text-sm font-semibold text-vc-sky transition-all">
@@ -263,10 +269,10 @@
                         <div class="w-10 h-10 rounded-xl bg-vc-blue/20 border border-vc-blue/40 text-vc-sky flex items-center justify-center">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                         </div>
-                        <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-vc-bg text-slate-300 border border-vc-border">Sevilla Hub</span>
+                        <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-vc-bg text-slate-300 border border-vc-border">Av. de la Palmera</span>
                     </div>
                     <h3 class="font-display text-lg font-bold text-white">Localización</h3>
-                    <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">Visita nuestro Data Hub en Cartuja con sala de benchmarking Multi-GPU.</p>
+                    <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">Sede en IES Fernando de Herrera (Av. de la Palmera, 20, Sevilla).</p>
                 </div>
                 <span class="mt-4 text-xs font-bold text-vc-sky inline-flex items-center gap-1">Ubicación y horarios →</span>
             </div>
@@ -434,6 +440,117 @@
             <button onclick="resetFilters()" class="mt-4 px-5 py-2.5 rounded-xl bg-vc-yellow text-vc-bg font-bold text-xs">
                 Mostrar los 100 productos
             </button>
+        </div>
+    </section>
+
+    <!-- 6.5 APARTADO: DÓNDE NOS SITUAMOS + VÍDEO SOBRE SER CIENTÍFICO DE DATOS -->
+    <section id="donde-nos-situamos" class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="rounded-3xl bg-vc-surface border border-vc-border p-6 sm:p-10 shadow-2xl">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 mb-8 border-b border-vc-border">
+                <div>
+                    <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-vc-yellow/15 border border-vc-yellow/40 text-vc-yellow text-xs font-bold mb-2">
+                        <span>📍 Sede Oficial & Divulgación Data Science</span>
+                    </span>
+                    <h2 class="font-display text-2xl sm:text-4xl font-bold text-white">Dónde nos situamos</h2>
+                </div>
+                <p class="text-xs sm:text-sm text-slate-400 max-w-md">
+                    Conoce nuestra sede física en Sevilla y descubre cómo es el día a día profesional trabajando como Científico de Datos.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 items-stretch">
+                
+                <!-- Columna 1: Ubicación Física IES Fernando de Herrera (Sevilla) -->
+                <div class="rounded-2xl bg-vc-bg border border-vc-border p-5 sm:p-6 flex flex-col justify-between gap-5">
+                    <div class="space-y-4">
+                        <div class="flex items-start justify-between gap-3">
+                            <div>
+                                <span class="text-[11px] font-bold uppercase tracking-wider text-vc-sky">Centro de Operaciones Sevilla</span>
+                                <h3 class="font-display text-xl sm:text-2xl font-bold text-white mt-0.5">IES Fernando de Herrera</h3>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-lg bg-vc-blue/20 border border-vc-blue/40 text-vc-sky text-xs font-bold shrink-0">
+                                41012 Sevilla
+                            </span>
+                        </div>
+
+                        <div class="space-y-2.5 text-xs sm:text-sm text-slate-300 bg-vc-surface/80 border border-vc-border rounded-xl p-4">
+                            <p class="flex items-start gap-2.5">
+                                <span class="text-vc-yellow font-bold shrink-0">📍 Dirección:</span>
+                                <span><strong class="text-white">Av. de la Palmera, 20, 41012 Sevilla</strong> (España)</span>
+                            </p>
+                            <p class="flex items-center gap-2.5">
+                                <span class="text-vc-sky font-bold shrink-0">📞 Teléfono:</span>
+                                <span class="font-semibold text-white">955 62 21 91</span>
+                            </p>
+                            <p class="flex items-start gap-2.5">
+                                <span class="text-vc-yellow font-bold shrink-0">🕒 Horario Lab:</span>
+                                <span>Lunes a Viernes de 08:15 a 21:30 h · Atención Data Week hasta las 22:00 h</span>
+                            </p>
+                        </div>
+
+                        <!-- Mapa Interactivo Embebido OpenStreetMap centrado en Av. de la Palmera, 20, Sevilla -->
+                        <div class="rounded-xl overflow-hidden border border-vc-border bg-vc-surface h-60 sm:h-64 relative">
+                            <iframe
+                                title="Mapa ubicación IES Fernando de Herrera - Av. de la Palmera, 20, Sevilla"
+                                src="https://www.openstreetmap.org/export/embed.html?bbox=-5.9935%2C37.3635%2C-5.9795%2C37.3718&amp;layer=mapnik&amp;marker=37.3676%2C-5.9866"
+                                class="w-full h-full border-0"
+                                loading="lazy">
+                            </iframe>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap items-center gap-3 pt-1">
+                        <a href="https://www.openstreetmap.org/?mlat=37.3676&amp;mlon=-5.9866#map=17/37.3676/-5.9866" target="_blank" rel="noopener noreferrer"
+                            class="flex-1 text-center px-4 py-2.5 rounded-xl bg-vc-blue hover:bg-blue-500 text-white font-bold text-xs transition-all">
+                            Abrir Mapa Ampliado ↗
+                        </a>
+                        <button onclick="copyCoupon('Av. de la Palmera, 20, 41012 Sevilla')"
+                            class="px-4 py-2.5 rounded-xl bg-vc-surface hover:bg-vc-card border border-vc-yellow/50 text-vc-yellow font-bold text-xs transition-all cursor-pointer">
+                            Copiar Dirección
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Columna 2: Vídeo de YouTube sobre cómo es ser Científico de Datos -->
+                <div class="rounded-2xl bg-vc-bg border border-vc-border p-5 sm:p-6 flex flex-col justify-between gap-5">
+                    <div class="space-y-4">
+                        <div class="flex items-start justify-between gap-3">
+                            <div>
+                                <span class="text-[11px] font-bold uppercase tracking-wider text-vc-yellow">Orientación & Carrera Tech</span>
+                                <h3 class="font-display text-xl sm:text-2xl font-bold text-white mt-0.5">¿Cómo es ser Científico de Datos?</h3>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-lg bg-vc-yellow/15 border border-vc-yellow/40 text-vc-yellow text-xs font-bold shrink-0">
+                                Vídeo
+                            </span>
+                        </div>
+
+                        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                            Descubre en este vídeo del canal <strong class="text-white">Destino Profesional</strong> cuáles son las tareas reales, herramientas diarias, salidas laborales y retos de trabajar como <strong class="text-vc-sky">Data Scientist</strong>.
+                        </p>
+
+                        <!-- Reproductor Iframe Responsivo YouTube -->
+                        <div class="rounded-xl overflow-hidden border border-vc-border bg-black aspect-video shadow-lg">
+                            <iframe
+                                class="w-full h-full"
+                                src="https://www.youtube.com/embed/s97pUW5fvXo"
+                                title="¿Cómo es el trabajo de un DATA SCIENTIST? | Científico de Datos"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen
+                                loading="lazy">
+                            </iframe>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+                        <span class="text-xs text-slate-400">Canal: <strong class="text-slate-200">Destino Profesional</strong></span>
+                        <a href="http://www.youtube.com/watch?v=s97pUW5fvXo" target="_blank" rel="noopener noreferrer"
+                            class="px-4 py-2.5 rounded-xl bg-vc-yellow hover:bg-vc-amber text-vc-bg font-extrabold text-xs transition-all">
+                            Ver en YouTube ↗
+                        </a>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </section>
 
@@ -964,13 +1081,17 @@
                 `,
                 localizacion: `
                     <span class="inline-block px-3 py-1 rounded-full bg-vc-blue/20 text-vc-sky text-xs font-bold mb-3">Sede Física & Benchmarking</span>
-                    <h3 class="font-display text-2xl font-bold text-white">Variable Cero Data Hub</h3>
-                    <p class="text-slate-400 text-sm mt-1">Visítanos para probar estaciones Multi-GPU o recoger pedidos:</p>
+                    <h3 class="font-display text-2xl font-bold text-white">IES Fernando de Herrera — Sevilla</h3>
+                    <p class="text-slate-400 text-sm mt-1">Visítanos en nuestra sede educativa y tecnológica en Sevilla:</p>
                     <div class="my-5 p-4 rounded-2xl bg-vc-bg border border-vc-border space-y-2.5 text-sm">
-                        <p><strong class="text-white">Dirección:</strong> Avenida del Tensor 0, Parque Tecnológico Cartuja, Sevilla</p>
-                        <p><strong class="text-white">Horario Data Week:</strong> Lunes a Domingo de 09:00 a 22:00 h</p>
-                        <p><strong class="text-white">Teléfono Lab:</strong> <span class="text-vc-yellow font-bold">954 00 70 80</span></p>
+                        <p><strong class="text-white">Centro:</strong> IES Fernando de Herrera</p>
+                        <p><strong class="text-white">Dirección:</strong> <span class="text-vc-yellow font-semibold">Av. de la Palmera, 20, 41012 Sevilla</span></p>
+                        <p><strong class="text-white">Teléfono:</strong> <span class="text-vc-sky font-bold">955 62 21 91</span></p>
+                        <p><strong class="text-white">Horario:</strong> Lunes a Viernes de 08:15 a 21:30 h</p>
                     </div>
+                    <button onclick="closeModal(); document.getElementById('donde-nos-situamos').scrollIntoView({behavior:'smooth'})" class="w-full py-3 rounded-xl bg-vc-yellow text-vc-bg font-extrabold text-xs">
+                        Ver Mapa y Vídeo de Ciencia de Datos ↓
+                    </button>
                 `,
                 consultoria: `
                     <span class="inline-block px-3 py-1 rounded-full bg-vc-yellow/15 text-vc-yellow text-xs font-bold mb-3">Ingeniería de Datos e IA</span>
